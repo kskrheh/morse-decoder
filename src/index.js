@@ -39,6 +39,31 @@ const MORSE_TABLE = {
 
 function decode(expr) {
     // write your solution here
+    const table = {};
+    const numberMap = {
+        '10': '.',
+        '11' : '-',
+        '00': ''
+    };
+
+    let resDecoded = '';
+    
+    for (let i = 0; i < expr.length; i+= 10) {
+        const letter = expr.substring(i, i + 10);
+        if (letter === '**********') {
+            resDecoded += ' ';
+            continue;
+        }
+        let letterMorse = '';
+        for (let j = 0; j < letter.length; j += 2) {
+            const number = letter[j] + letter[j+1];
+            letterMorse += numberMap[number];
+        }
+
+        resDecoded += MORSE_TABLE[letterMorse];
+    }
+
+    return resDecoded;
 }
 
 module.exports = {
